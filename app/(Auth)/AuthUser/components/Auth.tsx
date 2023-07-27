@@ -10,7 +10,7 @@ import ButtonAuth from "./ButtonAuth";
 import CreateAcc from "./CreateAcc";
 import { buttonVariants } from "@/components/ui/button";
 
-
+import axios from "axios";
 
 const Auth = () => {
     const [Email, setEmail] = useState("")
@@ -29,6 +29,23 @@ const ToggleVariant=useCallback(()=>{
     }
 },[variant])
 
+
+const Register=useCallback(async()=>{
+    try {
+        await axios.post("/api/auth/register",{
+            name,
+            email:Email,
+            password
+        })
+
+        
+    } catch (error) {
+        console.log('====================================');
+        console.log(error);
+        console.log('====================================');
+    }
+
+},[])
 
   return (
     <div className="relative min-h-screen min-w-full  bg-[url('/hero.jpg')] bg-cover bg-no-repeat bg-center bg-fixed lg:opacity-80 bg-black">
