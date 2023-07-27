@@ -39,9 +39,9 @@ const login=useCallback(async()=>{
       redirect:false,
       email:Email,
       password,
-      callbackUrl:"/"
+      callbackUrl:"/Profiles"
     })
-    route.push("/")
+    route.push("/Profiles")
     console.log('====================================');
     console.log('sign',LogIn);
     console.log('====================================');
