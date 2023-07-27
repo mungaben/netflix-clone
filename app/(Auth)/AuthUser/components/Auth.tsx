@@ -6,6 +6,7 @@ import Image from "next/image";
 
 import React, { useState } from "react";
 import InputAuth from "./InputAuth";
+import ButtonAuth from "./ButtonAuth";
 
 const Auth = () => {
     const [Email, setEmail] = useState("")
@@ -56,6 +57,11 @@ const Auth = () => {
                     label="Password"
                 />
             </div>
+            <div className="py-3 rounded-md transition mt-10">
+            <ButtonAuth/>
+            </div>
+          
+
           </div>
         </div>
       </div>
