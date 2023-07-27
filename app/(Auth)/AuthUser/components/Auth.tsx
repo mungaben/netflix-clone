@@ -11,8 +11,12 @@ import CreateAcc from "./CreateAcc";
 import { buttonVariants } from "@/components/ui/button";
 
 import axios from "axios";
+import { signIn } from "next-auth/react";
+import { useRouter } from 'next/navigation'
+import SocialLogin from "./SocialLogin";
 
 const Auth = () => {
+  const route= useRouter()
     const [Email, setEmail] = useState("")
     const [name, setname] = useState("")
     const [password, setpassword] = useState("")
@@ -28,11 +32,31 @@ const ToggleVariant=useCallback(()=>{
         setvariant("login")
     }
 },[variant])
+const login=useCallback(async()=>{
+  try{
+    // sign in user
+  const LogIn=  await signIn("credentials",{
+      redirect:false,
+      email:Email,
+      password,
+      callbackUrl:"/"
+    })
+    route.push("/")
+    console.log('====================================');
+    console.log('sign',LogIn);
+    console.log('====================================');
+
+  }catch(error){
+    console.log('====================================');
+    console.log(error);
+    console.log('====================================');
+  }
+},[ Email, password, route])
 
 
 const Register=useCallback(async()=>{
     try {
-       const CreateUser= await axios.post("/api/auth/register",{
+       const CreateUser= await axios.post("/api/register",{
             name,
             email:Email,
             password
@@ -40,7 +64,8 @@ const Register=useCallback(async()=>{
         console.log('====================================');
         console.log(CreateUser);
         console.log('====================================');
-
+ 
+       login();
         
     } catch (error) {
         console.log('====================================');
@@ -48,7 +73,8 @@ const Register=useCallback(async()=>{
         console.log('====================================');
     }
 
-},[ name, Email, password])
+},[ name, Email, password, login])
+
 
   return (
     <div className="relative min-h-screen min-w-full  bg-[url('/hero.jpg')] bg-cover bg-no-repeat bg-center bg-fixed lg:opacity-80 bg-black">
@@ -98,8 +124,9 @@ const Register=useCallback(async()=>{
                 />
             </div>
             <div className="py-3 mt-10 transition rounded-md">
-            <ButtonAuth variant={variant === "login"? "destructive" : "secondary" } label={variant === "login"? "Login" : "Register" } onClick={Register} />
+            <ButtonAuth variant={variant === "login"? "destructive" : "secondary" } label={variant === "login"? "Login" : "Register" } onClick={variant ==="login"? login:Register} />
             </div>
+            <SocialLogin/>
             <CreateAcc Onclick={ToggleVariant} variant={variant}/>
           
 

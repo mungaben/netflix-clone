@@ -7,7 +7,9 @@ const page = () => {
   return (
     
 
-        <Auth/>
+        <div>
+          <Auth/>
+        </div>
    
   )
 }
