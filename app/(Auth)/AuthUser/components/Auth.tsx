@@ -32,11 +32,14 @@ const ToggleVariant=useCallback(()=>{
 
 const Register=useCallback(async()=>{
     try {
-        await axios.post("/api/auth/register",{
+       const CreateUser= await axios.post("/api/auth/register",{
             name,
             email:Email,
             password
         })
+        console.log('====================================');
+        console.log(CreateUser);
+        console.log('====================================');
 
         
     } catch (error) {

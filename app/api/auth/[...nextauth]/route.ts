@@ -1,11 +1,12 @@
-import { RequestInternal, Awaitable, User } from "next-auth";
-import NextAuth from "next-auth/next";
+import { RequestInternal, Awaitable, User, NextAuthOptions } from "next-auth";
+
 import Credentials from "next-auth/providers/credentials";
+import NextAuth from "next-auth"
 
 import bcrypt from "bcrypt";
 import prismaDb from "@/prisma/prismaDb";
 
-export default NextAuth({
+const authOptions: NextAuthOptions={
     // providers credentials
     providers: [
         Credentials({
@@ -83,4 +84,7 @@ export default NextAuth({
     },
 
 
-});
+};
+
+const handler = NextAuth(authOptions);
+export { handler as GET, handler as POST };
