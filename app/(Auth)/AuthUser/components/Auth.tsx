@@ -4,14 +4,32 @@
 import { Input } from "@/components/ui/input";
 import Image from "next/image";
 
-import React, { useState } from "react";
+import React, { useCallback, useState } from "react";
 import InputAuth from "./InputAuth";
 import ButtonAuth from "./ButtonAuth";
+import CreateAcc from "./CreateAcc";
+import { buttonVariants } from "@/components/ui/button";
+
+
 
 const Auth = () => {
     const [Email, setEmail] = useState("")
     const [name, setname] = useState("")
     const [password, setpassword] = useState("")
+
+
+    const [variant, setvariant] = useState("login")
+
+const ToggleVariant=useCallback(()=>{
+    if(variant==="login"){
+        setvariant("Register") 
+    }
+    else{
+        setvariant("login")
+    }
+},[variant])
+
+
   return (
     <div className="relative min-h-screen min-w-full  bg-[url('/hero.jpg')] bg-cover bg-no-repeat bg-center bg-fixed lg:opacity-80 bg-black">
       <div className="   ">
@@ -27,9 +45,10 @@ const Auth = () => {
         <div className=" flex justify-center">
           <div className=" bg-black bg-opacity-70 py-16  px-16 self-center w-full lg:w-2/5 lg:max-w-md rounded-md">
             <h2 className=" text-[#fff] text-4xl font-semibold mb-8">
-              Sign In
+              {variant==="login"?"Sign In":"Register"}
             </h2>
             <div className=" flex flex-col gap-4">
+            {variant==="Register"&&
              <InputAuth
                  id="name"
                  Onchange={(e: { target: { value: React.SetStateAction<string>; }; })=>setname(e.target.value)}
@@ -39,6 +58,7 @@ const Auth = () => {
                  label="name"            
              
              />
+            }
                <InputAuth
                  id="email"
                  Onchange={(e: { target: { value: React.SetStateAction<string>; }; })=>setEmail(e.target.value)}
@@ -58,8 +78,9 @@ const Auth = () => {
                 />
             </div>
             <div className="py-3 rounded-md transition mt-10">
-            <ButtonAuth/>
+            <ButtonAuth variant={variant === "login"? "destructive" : "secondary" } label={variant === "login"? "Login" : "Register" } />
             </div>
+            <CreateAcc Onclick={ToggleVariant} variant={variant}/>
           
 
           </div>
