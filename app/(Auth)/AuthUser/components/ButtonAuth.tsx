@@ -7,18 +7,21 @@ type ButtonVariant = "default" | "destructive" | "outline" | "secondary" | "ghos
 interface ButtonAuthProps {
     variant?: ButtonVariant;
     label:string
+    onClick?: () => void;
 }
 
 const ButtonAuth:React.FC<ButtonAuthProps> = (
     {
         variant,
-        label
+        label,
+        onClick
+
     }
 ) => {
   return (
     <>
 
-      <Button className={`w-full hover:bg-red-500`} variant={variant}>
+      <Button onClick={onClick} className={`w-full hover:bg-red-500`} variant={variant}>
         {label}
       </Button>
     </>

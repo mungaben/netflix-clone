@@ -45,12 +45,12 @@ const Register=useCallback(async()=>{
         console.log('====================================');
     }
 
-},[])
+},[ name, Email, password])
 
   return (
     <div className="relative min-h-screen min-w-full  bg-[url('/hero.jpg')] bg-cover bg-no-repeat bg-center bg-fixed lg:opacity-80 bg-black">
-      <div className="   ">
-        <nav className=" px-12 py-5">
+      <div className="">
+        <nav className="px-12 py-5 ">
           <Image
             src={"/logo.png"}
             height={100}
@@ -59,12 +59,12 @@ const Register=useCallback(async()=>{
             className="cursor-pointer"
           />
         </nav>
-        <div className=" flex justify-center">
-          <div className=" bg-black bg-opacity-70 py-16  px-16 self-center w-full lg:w-2/5 lg:max-w-md rounded-md">
+        <div className="flex justify-center ">
+          <div className="self-center w-full px-16 py-16 bg-black rounded-md bg-opacity-70 lg:w-2/5 lg:max-w-md">
             <h2 className=" text-[#fff] text-4xl font-semibold mb-8">
               {variant==="login"?"Sign In":"Register"}
             </h2>
-            <div className=" flex flex-col gap-4">
+            <div className="flex flex-col gap-4 ">
             {variant==="Register"&&
              <InputAuth
                  id="name"
@@ -94,8 +94,8 @@ const Register=useCallback(async()=>{
                     label="Password"
                 />
             </div>
-            <div className="py-3 rounded-md transition mt-10">
-            <ButtonAuth variant={variant === "login"? "destructive" : "secondary" } label={variant === "login"? "Login" : "Register" } />
+            <div className="py-3 mt-10 transition rounded-md">
+            <ButtonAuth variant={variant === "login"? "destructive" : "secondary" } label={variant === "login"? "Login" : "Register" } onClick={Register} />
             </div>
             <CreateAcc Onclick={ToggleVariant} variant={variant}/>
           
