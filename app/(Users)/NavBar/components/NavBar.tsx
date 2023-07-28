@@ -1,25 +1,40 @@
 "use client";
 import Image from "next/image";
-import React, { useCallback, useState } from "react";
+import React, { use, useCallback, useEffect, useState } from "react";
 import NavBarItem from "./NavBarItem";
 
 import { BsBell, BsChevronDown, BsSearch } from "react-icons/bs";
 import MobileMenu from "./MobileMenu";
 import AccountMenu from "./AccountMenu";
-
+ const TOP_OFFSET=60;
 const NavBar = () => {
   const [ShowMobileMenu, setShowMobileMenu] = useState(false);
   const [ShowAccountMenu, setShowAccountMenu] = useState(false)
-
+   const [showBackground, setshowBackground] = useState(false)
   const TagglemobileMenu = useCallback(() => {
     setShowMobileMenu((prev) => !prev);
   }, []);
   const TaggleAccountMenu = useCallback(() => {
     setShowAccountMenu((prev) => !prev);
   }, []);
+  useEffect(() => {
+    const handlescroll=()=>{
+      if(window.scrollY>TOP_OFFSET){
+        setshowBackground(true)
+      }
+      else{
+        setshowBackground(false)
+      }
+    }
+    window.addEventListener("scroll",handlescroll)
+    return () => {
+      window.removeEventListener("scroll",handlescroll)
+    }
+  }, []);
+
   return (
     <div className="fixed z-40 w-full ">
-      <div className="flex flex-row items-center px-4 py-6 transition duration-200 ease-in-out md:px-16 bg-opacity-60 bg-zinc-900">
+      <div className={`flex flex-row items-center px-4 py-6 transition duration-200 ease-in-out md:px-16 ${showBackground ? "bg-zinc-900 bg-opacity-90":""} `}>
         <Image src="/logo.png" height={100} width={100} alt="logo" />
         <div className="flex-row hidden ml-8 gap-7 lg:flex">
           <NavBarItem label="Home" />
