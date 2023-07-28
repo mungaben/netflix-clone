@@ -1,6 +1,9 @@
+import { authOptions } from '@/app/api/auth/[...nextauth]/route';
 import prismaDb from '@/prisma/prismaDb';
-import { NextApiRequest } from 'next';
+import { NextApiRequest, NextApiResponse } from 'next';
+import { getServerSession } from 'next-auth/next';
 import { getSession } from 'next-auth/react';
+import { NextRequest, NextResponse } from 'next/server';
 
 
 
@@ -8,18 +11,30 @@ import { getSession } from 'next-auth/react';
 
 
 
-const ServerAuth=async(req:NextApiRequest,)=>{
-    const session= await getSession({req});
-    if(!session?.user?.email){
-      throw new Error("Unauthorized");
+const ServerAuth = async (res: NextRequest) => {
+
+    const session = await getServerSession(authOptions);
+
+    if (!session) {
+        return NextResponse.json({
+            message: "not authorized"
+        })
     }
-    const user= await prismaDb.user.findUnique({
+    if (!session?.user?.email) {
+        return NextResponse.json({
+            message: "not authorized"
+        })
+    }
+    const user = await prismaDb.user.findUnique({
         where: {
             email: session.user.email
         }
     })
-    if(!user){
-        throw new Error("Unauthorized Not in DB");
+
+    if (!user) {
+        return NextResponse.json({
+            message: "not authorized"
+        })
     }
     return user;
 }

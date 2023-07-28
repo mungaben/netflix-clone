@@ -8,7 +8,7 @@ import prismaDb from "@/prisma/prismaDb";
 import GithubProvider from "next-auth/providers/github";
 import GoogleProvider from "next-auth/providers/google";
 import { PrismaAdapter } from "@next-auth/prisma-adapter"
-const authOptions: NextAuthOptions={
+export const authOptions: NextAuthOptions={
     // route
    
     // providers credentials

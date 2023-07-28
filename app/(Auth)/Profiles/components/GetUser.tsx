@@ -1,22 +1,20 @@
 "use client";
 
 import { Button } from "@/components/ui/button";
+import CurrentUser from "@/hooks/CurrentUser";
 import { getSession, signOut } from "next-auth/react";
 import Image from "next/image";
 import React from "react";
+import loading from '../loading';
+import Loading from "../loading";
+import Error from "../error";
+import { User } from '../../../../types';
+import { useRouter } from "next/navigation";
 
 const GetUser = () => {
-  const session = getSession();
-
-  const user = async () => {
-    const usersession = await session;
-    console.log("====================================");
-    console.log(usersession?.user?.name);
-    console.log("====================================");
-  };
-  console.log("====================================");
-  console.log(user());
-  console.log("====================================");
+    const { data,isLoading,mutate, } = CurrentUser();
+    const dataUser = data?.data as User
+    const route= useRouter()
   return (
     <div className="flex items-center justify-center h-full">
     <div className="flex flex-col">
@@ -24,7 +22,7 @@ const GetUser = () => {
         who is watching?
       </h1>
       <div className="flex items-center justify-center gap-8 mt-10 ">
-<div onClick={()=>{}}>
+<div onClick={()=>{route.push("/")}}>
     <div className="flex flex-col mx-auto group w-44">
         <div 
         className="overflow-hidden transition-all duration-500 ease-in-out bg-gray-500 border-2 border-gray-300 rounded-md w-44 h-44 group-hover:border-white group-hover:cursor-pointer group-hover:opacity-70"
@@ -40,8 +38,7 @@ const GetUser = () => {
         <div
          className="mt-4 text-2xl text-center text-gray-400 group-hover:text-white group-hover:cursor-pointer group-hover:opacity-70"
          >
-            name
-
+            {dataUser?.name} data 
         </div>
 
     </div>
