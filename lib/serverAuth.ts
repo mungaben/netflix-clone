@@ -30,7 +30,7 @@ const ServerAuth = async (res: NextRequest) => {
             email: session.user.email
         }
     })
-
+   
     if (!user) {
         return NextResponse.json({
             message: "not authorized"

@@ -4,6 +4,7 @@
 
 // post movies
 
+import ServerAuth from "@/lib/serverAuth";
 import prismaDb from "@/prisma/prismaDb";
 import { NextRequest, NextResponse } from "next/server";
 
@@ -124,7 +125,12 @@ export async function POST(req: NextRequest, res: NextResponse) {
 
 export async function GET(req: NextRequest, res: NextResponse) {
     try {
-        const movies = await prismaDb.movie.findMany();
+        await ServerAuth(req);
+        const movieCount= await prismaDb.movie.count();
+        const movies = await prismaDb.movie.findMany({
+            take: 1,
+            skip:Math.floor(Math.random() * movieCount)
+        });
         return NextResponse.json({
             status: 200,
             statusbar: "success",
