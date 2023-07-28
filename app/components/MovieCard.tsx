@@ -16,6 +16,7 @@ import {
 
 import { Movie } from "@/types";
 import Image from "next/image";
+import { BsFillPlayFill } from "react-icons/bs";
 interface MovieCardProps {
   movie: Movie;
 }
@@ -28,16 +29,56 @@ const MovieCard: React.FC<MovieCardProps> = ({ movie }) => {
             src={movie?.thumbnailUrl}
             alt="movie poster"
             fill
-            className=" cursor-pointer object-cover transition  duration-200 shadow-lg rounded-md group-hover:opacity-90 sm:group-hover:opacity-0 delay-300 w-full h-[12vw]"
+            className=" cursor-pointer object-cover transition  duration-200 shadow-lg rounded-md group-hover:opacity-90 sm:group-hover:opacity-0 delay-200 w-full h-[12vw]"
           />
         </HoverCardTrigger>
         <HoverCardContent className="translate-x-[12vw] flex min-w-full scale-150">
-            <Image
+          {/* <Image
                 src={movie?.thumbnailUrl}
                 alt="movie poster"
                 fill
-                className="object-cover w-full h-[12vw] rounded-md"
-            />
+                className="object-cover rounded-md"
+            /> */}
+          <Card>
+            <CardContent>
+              <div className="flex items-center justify-center gap-4 ">
+                <Image
+                  src={movie?.thumbnailUrl}
+                  alt="movie poster"
+                  fill
+                  className="object-cover rounded-md"
+                />
+                <div
+                  onClick={() => {}}
+                  className="absolute bottom-0 left-0 z-50 w-full p-2 text-transparent transition shadow-lg bg-clip-text bg-gradient-to-r from-pink-500 to-violet-500 lg:p-4 rounded-b-md"
+                >
+                  <div className="flex items-center justify-center">
+                    <BsFillPlayFill size={30} color={"white"}  className="bg-black rounded-full"/>{" "}
+                    <hr className="items-center justify-center w-full bg-slate-100" />
+                  </div>
+                  <div className="flex flex-col items-start justify-center ml-8">
+                    <p className="ml-4 font-semibold text-green-400 flex-flex-row ">
+                      Time{" "}
+                      <span className="text-white ">
+                        {" "}
+                        {new Date().getFullYear()}
+                      </span>
+                    </p>
+                    <div className="flex flex-row items-center gap-2 mt-4 ">
+                      <p className=" text-white text-[10px] lg:text-sm">
+                        {movie?.duration}
+                      </p>
+                    </div>
+                    <div className="flex flex-row items-center gap-2 mt-4 ">
+                      <p className=" text-white text-[10px] lg:text-sm">
+                        {movie?.genre}
+                      </p>
+                    </div>
+                  </div>
+                </div>
+              </div>
+            </CardContent>
+          </Card>
         </HoverCardContent>
       </HoverCard>
 
