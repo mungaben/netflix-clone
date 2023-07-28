@@ -118,3 +118,24 @@ export async function POST(req: NextRequest, res: NextResponse) {
     }
 
 }
+
+
+// get all movies
+
+export async function GET(req: NextRequest, res: NextResponse) {
+    try {
+        const movies = await prismaDb.movie.findMany();
+        return NextResponse.json({
+            status: 200,
+            statusbar: "success",
+            data: movies
+        })
+    } catch (error) {
+        return NextResponse.json({
+            status: 500,
+            statusbar: "error",
+            message: "Internal Server Error"
+
+        })
+    }
+}
