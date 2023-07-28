@@ -4,7 +4,7 @@ import { NextApiRequest, NextApiResponse } from 'next';
 import { getServerSession } from 'next-auth/next';
 import { getSession } from 'next-auth/react';
 import { NextRequest, NextResponse } from 'next/server';
-
+import { redirect } from 'next/navigation'
 
 
 // get session
@@ -32,10 +32,14 @@ const ServerAuth = async (res: NextRequest) => {
     })
    
     if (!user) {
-        return NextResponse.json({
-            message: "not authorized"
-        })
+        // redirect to AuthUser
+       return null
     }
+   
+   
+    console.log('====================================');
+    console.log(user);
+    console.log('====================================');
     return user;
 }
 export default ServerAuth;

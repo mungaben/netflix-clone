@@ -26,7 +26,7 @@ const AccountMenu: React.FC<AccountMenuProps> = ({ visible }) => {
         </div>
         <hr className="h-px my-4 bg-gray-600 border-0 " />
         <div
-          onClick={() => signOut()}
+          onClick={() => signOut({callbackUrl:"/AuthUser"})}
           className="px-3 text-sm text-center text-white hover:underline"
         >
           Sign Out NetFlix

@@ -6,7 +6,11 @@
 
 import ServerAuth from "@/lib/serverAuth";
 import prismaDb from "@/prisma/prismaDb";
+import { getServerSession } from "next-auth/next";
+
 import { NextRequest, NextResponse } from "next/server";
+import { authOptions } from "../auth/[...nextauth]/route";
+import { redirect } from "next/navigation";
 
 
 
@@ -125,6 +129,15 @@ export async function POST(req: NextRequest, res: NextResponse) {
 
 export async function GET(req: NextRequest, res: NextResponse) {
     try {
+        await ServerAuth(req);
+        const session = await getServerSession(authOptions);
+        console.log('====================================');
+        console.log("SERVER SESSION",session?.user?.email);
+        console.log('====================================');
+        if (!session) {
+            // redirect user
+            return NextResponse.redirect('/AuthUser')
+        }
         await ServerAuth(req);
         const movieCount= await prismaDb.movie.count();
         const movies = await prismaDb.movie.findMany({
