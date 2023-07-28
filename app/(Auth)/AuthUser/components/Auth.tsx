@@ -124,7 +124,7 @@ const Register=useCallback(async()=>{
                 />
             </div>
             <div className="py-3 mt-10 transition rounded-md">
-            <ButtonAuth variant={variant === "login"? "destructive" : "secondary" } label={variant === "login"? "Login" : "Register" } onClick={variant ==="login"? login:Register} />
+            <ButtonAuth variant={variant === "login"? "destructive" : "secondary" } label={variant === "login"? "Login" : "Register" } onClick={variant ==="login"? login:Register}  width={true}/>
             </div>
             <SocialLogin/>
             <CreateAcc Onclick={ToggleVariant} variant={variant}/>

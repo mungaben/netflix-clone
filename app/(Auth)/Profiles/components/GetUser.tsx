@@ -38,7 +38,7 @@ const GetUser = () => {
         <div
          className="mt-4 text-2xl text-center text-gray-400 group-hover:text-white group-hover:cursor-pointer group-hover:opacity-70"
          >
-            {dataUser?.name} data 
+            {dataUser?.name} 
         </div>
 
     </div>

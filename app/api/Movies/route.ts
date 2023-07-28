@@ -134,7 +134,7 @@ export async function GET(req: NextRequest, res: NextResponse) {
         return NextResponse.json({
             status: 200,
             statusbar: "success",
-            data: movies
+            data: movies[0]
         })
     } catch (error) {
         return NextResponse.json({

@@ -15,3 +15,13 @@ export interface User {
   // Example usage:
 
   
+
+export  interface Movie {
+    description: string;
+    duration: string;
+    genre: string;
+    id: string;
+    thumbnailUrl: string;
+    title: string;
+    videoUrl: string;
+  }
