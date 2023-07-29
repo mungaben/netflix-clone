@@ -1,17 +1,22 @@
 "use client";
 import UseBillBoard from "@/lib/UseBIlboard";
-import React, { useEffect } from "react";
+import React, { useCallback, useEffect } from "react";
 import { Movie } from "../../types";
 import { Button } from "@/components/ui/button";
 import ButtonAuth from "../(Auth)/AuthUser/components/ButtonAuth";
-import {AiOutlineInfoCircle} from 'react-icons/ai'
+import { AiOutlineInfoCircle } from "react-icons/ai";
 import PlayButton from "./PlayButton";
+import UseInfoModal from "@/hooks/UseInfoModal";
 const BilBoard = () => {
   const { data, isLoading, error } = UseBillBoard();
   const datas = data?.data as Movie;
+  const { openModel}=UseInfoModal();
+ const handleopenModal=useCallback(()=>{
+   openModel( datas?.id);
 
+ },[datas?.id, openModel]);
   useEffect(() => {
-    console.log(datas?.duration);
+       datas
   }, [datas]);
   return (
     <div className="relative h-[56.25vw] bg-white ">
@@ -48,10 +53,16 @@ const BilBoard = () => {
           {datas?.description}
         </p>
         <div className="flex flex-row items-center gap-3 mt-3 md:mt-4">
-          <PlayButton id={datas?.id}/>
-        <ButtonAuth variant="secondary" label="More Info" icon={AiOutlineInfoCircle } />
+          <PlayButton id={datas?.id} />
+          <span onClick={handleopenModal} > 
+          <ButtonAuth
+            variant="secondary"
+            label="More Info"
+            icon={AiOutlineInfoCircle}
+          />
+          </span>
+          
         </div>
-       
       </div>
     </div>
   );

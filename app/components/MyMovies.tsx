@@ -10,9 +10,7 @@ import Favourite from '@/hooks/Favourite'
 const MyMovies = () => {
     const {data} = MoviesListHook()
     const{data:Favourites}=Favourite()
-    console.log('====================================');
-    console.log(Favourites?.data);
-    console.log('====================================');
+   
     return (
     <div className='pb-40 '>
     <MoviesList Title='Trending Now' data={data?.data} />

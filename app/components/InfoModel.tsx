@@ -18,7 +18,8 @@ const InfoModel: React.FC<InfoModelProps> = ({ visible, onClose }) => {
   const { MovieId } = UseInfoModal();
   const movieID: string | undefined = MovieId;
   const { data, isLoading, error } = SingleMoviesHook({ id: movieID });
-  const MovieData: Movie = data?.data[0];
+
+  
   useEffect(() => {
     setisVisible(!!visible);
   }, [visible]);
@@ -32,6 +33,16 @@ const InfoModel: React.FC<InfoModelProps> = ({ visible, onClose }) => {
   if (!isVisible) {
     return null;
   }
+  if (isLoading) {
+    return <div>Loading...</div>;
+  }
+  if (error) {
+    return <div>Error</div>;
+  }
+  if (!data?.data) {
+    return null;
+  }
+  const MovieData: Movie = data.data && data?.data[0];
 
   return (
     <div className="fixed inset-0 z-20 flex items-center justify-center overflow-x-hidden overflow-y-auto transition duration-300 ease-in-out transform bg-black ">
@@ -41,34 +52,35 @@ const InfoModel: React.FC<InfoModelProps> = ({ visible, onClose }) => {
             isVisible ? " scale-100" : "scale-0"
           } transform duration-100 relative fx-auto bg-zinc-900 drop-shadow-md `}
         >
-          <div className="relative bg-red-400 h-96">
+          <div className="relative h-96">
             <video
               className=" w-full brightness-[60%] object-cover h-full"
               src={MovieData?.videoUrl}
               poster={MovieData?.thumbnailUrl}
               muted
-             
             ></video>
             <div
-            className="absolute flex items-center justify-center w-10 h-10 bg-black rounded-full cursor-pointer top-3 right-3"
-            
-            onClick={()=>{}}
+              className="absolute flex items-center justify-center w-10 h-10 bg-black rounded-full cursor-pointer top-3 right-3"
+              onClick={() => HandleClose()}
             >
-                <AiOutlineClose size={25} color="white"/>
-
+              <AiOutlineClose size={25} color="white" />
             </div>
             <div className="absolute bottom-[100px] left-10">
-                <p className="h-full mb-8 text-2xl font-bold text-white md:text-4xl lg:text-5xl">
-                    {MovieData?.title}
-                </p>
-                <div className="flex flex-row items-center gap-4 ">
-                    <PlayButton id={MovieData.id} />
-                    <FavouriteButtons MovieId={MovieData.id} />
-
-                </div>
-
-
+              <p className="h-full mb-8 text-2xl font-bold text-white md:text-4xl lg:text-5xl">
+                {MovieData?.title}
+              </p>
+              <div className="flex flex-row items-center gap-4 ">
+                <PlayButton id={MovieData?.id} />
+                <FavouriteButtons MovieId={MovieData?.id} />
+              </div>
             </div>
+          </div>
+          <div className="p-12 py-12 ">
+            <p className="text-lg font-semibold text-green-400 ">save</p>
+              <p className="text-lg text-white ">{MovieData?.duration}</p>
+              <p className="text-lg text-white ">{MovieData?.genre}</p>
+              <p className="text-lg text-white ">{MovieData?.description}</p>
+
           </div>
         </div>
       </div>
