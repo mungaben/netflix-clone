@@ -36,10 +36,7 @@ const ServerAuth = async (res: NextRequest) => {
        return null
     }
    
-   
-    console.log('====================================');
-    console.log(user);
-    console.log('====================================');
+ 
     return user;
 }
 export default ServerAuth;

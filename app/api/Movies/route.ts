@@ -131,9 +131,7 @@ export async function GET(req: NextRequest, res: NextResponse) {
     try {
         await ServerAuth(req);
         const session = await getServerSession(authOptions);
-        console.log('====================================');
-        console.log("SERVER SESSION",session?.user?.email);
-        console.log('====================================');
+     ;
         if (!session) {
             // redirect user
             return NextResponse.redirect('/AuthUser')

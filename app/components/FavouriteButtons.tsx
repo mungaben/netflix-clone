@@ -29,7 +29,7 @@ const FavouriteButtons: React.FC<FavouriteButtonsProps> = ({ MovieId }) => {
       if (favourite) {
         // check if movie is in favourite list
 
-        console.log("in favourite", MovieId);
+   
         response = await axios.delete(`/api/MovieList/${MovieId}`);
       } else {
         // check if movie is in favourite list

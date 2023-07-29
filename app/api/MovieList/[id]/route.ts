@@ -27,10 +27,7 @@ export async function GET(req: NextRequest, { params }: { params: Idtype }, res:
         if (!session) {
             return NextResponse.redirect('/AuthUser')
         }
-        console.log('====================================');
-        console.log("SERVER SESSION in Movielist Get REquest", session?.user?.email);
-        console.log('====================================');
-
+      
         const { id } = params;
 
         const movies = await prismaDb.movie.findMany({
@@ -69,9 +66,7 @@ export async function POST(req: NextRequest, { params }: { params: Idtype }, res
                 email: session?.user?.email || ''
             }
         })
-        console.log('====================================');
-        console.log("SERVER SESSION in post movielist", session?.user?.email);
-        console.log('====================================');
+       
         // no user found
         if (!user) {
             return NextResponse.json({
@@ -86,9 +81,7 @@ export async function POST(req: NextRequest, { params }: { params: Idtype }, res
                 id: id
             }
         })
-        console.log('====================================');
-        console.log("SERVEr movie in post movielist", movie);
-        console.log('====================================');
+      
         // no movie found
         if (!movie) {
             return NextResponse.json({
@@ -101,9 +94,7 @@ export async function POST(req: NextRequest, { params }: { params: Idtype }, res
         //  check if id is in user's favourite list
         const userFavoriteIds = user.favoriteIds;
         const updatedFavoriteIds = Array.from(userFavoriteIds).filter((id) => id === movie.id);
-        console.log('====================================');
-        console.log("USER FAVORITE MOVIES IN POST MOVIELIST movie cliecked already in favorite movies", updatedFavoriteIds);
-        console.log('====================================');
+     
         if (updatedFavoriteIds.length > 0) {
             return NextResponse.json({
                 status: 404,
@@ -111,9 +102,7 @@ export async function POST(req: NextRequest, { params }: { params: Idtype }, res
                 message: "favorite movie added already"
             })
         }
-        console.log('====================================');
-        console.log("UPDATED USER in movielist post", updatedFavoriteIds,"posted id",movie.id);
-        console.log('====================================');
+     
         // update user favourite movies
         const updateUser = await prismaDb.user.update({
             where: {
@@ -125,9 +114,7 @@ export async function POST(req: NextRequest, { params }: { params: Idtype }, res
                 }
             }
         })
-        console.log('====================================');
-        console.log("UPDATE USER in movie in post list", updateUser);
-        console.log('====================================');
+     
 
         return NextResponse.json({
             status: 200,
@@ -201,9 +188,7 @@ export async function DELETE(req: NextRequest, { params }: { params: Idtype }, r
 
         // update user favourite movies by removing the movie id.
         const updatedFavoriteIds = Array.from(user.favoriteIds).filter((id) => id !== movie.id);
-console.log('====================================');
-console.log("UPDATED USER in Delete in   movielist", updatedFavoriteIds);
-console.log('====================================');
+
         const updatedUser = await prismaDb.user.update({
             where: {
                 email:user.email ||""
@@ -212,9 +197,7 @@ console.log('====================================');
                 favoriteIds: updatedFavoriteIds,
             }
         });
-        console.log('====================================');
-        console.log("UPDATED USER after update  in delete in movelist", updatedUser);
-        console.log('====================================');
+    
         return NextResponse.json({
             status: 200,
             statusbar: "success",

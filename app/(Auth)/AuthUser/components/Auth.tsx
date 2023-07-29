@@ -42,14 +42,9 @@ const login=useCallback(async()=>{
       callbackUrl:"/Profiles"
     })
     route.push("/Profiles")
-    console.log('====================================');
-    console.log('sign',LogIn);
-    console.log('====================================');
-
+   
   }catch(error){
-    console.log('====================================');
-    console.log(error);
-    console.log('====================================');
+  
   }
 },[ Email, password, route])
 
@@ -61,16 +56,12 @@ const Register=useCallback(async()=>{
             email:Email,
             password
         })
-        console.log('====================================');
-        console.log(CreateUser);
-        console.log('====================================');
+        
  
        login();
         
     } catch (error) {
-        console.log('====================================');
-        console.log(error);
-        console.log('====================================');
+       
     }
 
 },[ name, Email, password, login])

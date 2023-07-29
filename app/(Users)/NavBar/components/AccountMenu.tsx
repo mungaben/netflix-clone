@@ -1,18 +1,23 @@
+
+
+"use client"
 import { signOut } from "next-auth/react";
 import Image from "next/image";
 import React from "react";
+import  { useRouter }  from "next/navigation";
 
 interface AccountMenuProps {
   visible?: boolean;
 }
 
 const AccountMenu: React.FC<AccountMenuProps> = ({ visible }) => {
+  const route = useRouter()
   // not visisble return null
   if (!visible) return null;
   return (
     <div className="absolute right-0 flex-col w-56 py-5 bg-black border-2 border-gray-300 rounded-md top-10 ">
       <div className="flex flex-col gap-3 ">
-        <div className="flex flex-row items-center w-full gap-3 px-3 group/item">
+        <div onClick={()=>route.push("/AuthUser")} className="flex flex-row items-center w-full gap-3 px-3 group/item">
           <Image
             src={"/default-blue.png"}
             alt="logo"
