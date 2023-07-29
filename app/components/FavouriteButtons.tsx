@@ -7,6 +7,7 @@ import { AiOutlineCheckCircle, AiOutlinePlusCircle } from "react-icons/ai";
 import axios from "axios";
 import CurrentUser from "@/hooks/CurrentUser";
 import Favourite from "@/hooks/Favourite";
+import { Movie } from "@prisma/client";
 
 interface FavouriteButtonsProps {
   MovieId: string;
@@ -22,19 +23,11 @@ const FavouriteButtons: React.FC<FavouriteButtonsProps> = ({ MovieId }) => {
 
 
 
-
   const IsFavourite = useCallback(() => {
-
-    const list = data?.data?.favoriteIds || [];
-    console.log('====================================');
-    console.log("favorlite movies ",list);
-    console.log('====================================');
-    return list.includes(MovieId);
-  }, [data?.data?.favoriteIds, MovieId]);
-  console.log('====================================');
-  console.log("is favourite ", IsFavourite());
-  console.log('====================================');
-
+// check if favorite includes movieId
+    return Favourites?.data?.map((item:Movie) => item.id).includes(MovieId);
+  }, [Favourites?.data, MovieId]);
+  
   const favourite:boolean=IsFavourite();
 
 
@@ -60,9 +53,7 @@ const FavouriteButtons: React.FC<FavouriteButtonsProps> = ({ MovieId }) => {
 
 
 
-   console.log('====================================');
-   console.log("favourite", favourite);
-   console.log('====================================');
+
 
     const UpdatedFavouriteIds = response?.data?.favoriteIds;
 
@@ -78,7 +69,7 @@ const FavouriteButtons: React.FC<FavouriteButtonsProps> = ({ MovieId }) => {
 
 
     MutateFav();
-  }, [IsFavourite, mutate, data?.data, MutateFav, MovieId]);
+  }, [favourite, mutate, data?.data, MutateFav, MovieId]);
 
 
 
@@ -90,14 +81,14 @@ const FavouriteButtons: React.FC<FavouriteButtonsProps> = ({ MovieId }) => {
 
 
   // Change icons
-  const Icon = IsFavourite() ? AiOutlineCheckCircle : AiOutlinePlusCircle;
-
+  const Icon = favourite ? AiOutlineCheckCircle : AiOutlinePlusCircle;
+  const color=favourite?"red":"white";
   return (
     <div
       onClick={(e)=>{toogleFavourite(e)}}
       className="transition border-2 border-white rounded-full cursor-pointer hover:border-neutral-100"
     >
-      <Icon size={30} color="white" className="p-2 bg-black rounded-full" />
+      <Icon size={30} color={color} className="p-2 bg-black rounded-full" />
     </div>
   );
 };
