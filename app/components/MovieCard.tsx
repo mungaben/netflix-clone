@@ -1,3 +1,5 @@
+
+"use client"
 import React from "react";
 import {
   Card,
@@ -17,6 +19,7 @@ import {
 import { Movie } from "@/types";
 import Image from "next/image";
 import { BsFillPlayFill } from "react-icons/bs";
+import FavouriteButtons from "./FavouriteButtons";
 interface MovieCardProps {
   movie: Movie;
 }
@@ -52,15 +55,16 @@ const MovieCard: React.FC<MovieCardProps> = ({ movie }) => {
                   onClick={() => {}}
                   className="absolute bottom-0 left-0 z-50 w-full p-2 text-transparent transition shadow-lg bg-clip-text bg-gradient-to-r from-pink-500 to-violet-500 lg:p-4 rounded-b-md"
                 >
-                  <div className="flex items-center justify-center">
-                    <BsFillPlayFill size={30} color={"white"}  className="bg-black rounded-full"/>{" "}
+                  <div className="flex items-center justify-center gap-4">
+                    <BsFillPlayFill size={30} color={"white"}  className="p-2 bg-black rounded-full"/>
+                    <FavouriteButtons MovieId={movie.id}/> 
                     <hr className="items-center justify-center w-full bg-slate-100" />
                   </div>
                   <div className="flex flex-col items-start justify-center ml-8">
                     <p className="ml-4 font-semibold text-green-400 flex-flex-row ">
-                      Time{" "}
+                      Time
                       <span className="text-white ">
-                        {" "}
+                       
                         {new Date().getFullYear()}
                       </span>
                     </p>

@@ -5,20 +5,39 @@ import { NextRequest, NextResponse } from "next/server";
 import { authOptions } from "../auth/[...nextauth]/route";
 import { IncomingMessage, ServerResponse } from "http";
 import { AuthOptions } from "next-auth";
+import prismaDb from "@/prisma/prismaDb";
 
 
 
 export async function GET(req:NextRequest, res:NextResponse) {
     try {
-      const session = await ServerAuth(req);
+    
+      const session = await getServerSession(authOptions);
+    // if (!session) {
+    //     // redirect user
+    //     return NextResponse.redirect('/AuthUser')
+    // }
+    if (!session) {
+      return NextResponse.json({
+        status: 401,
+        statusbar: "error",
+        message: "Unauthorized"
+      });
+    }
+    // get user
   
-      if (!session) {
-        return NextResponse.json({
-          status: 401,
-          statusbar: "error",
-          message: "Unauthorized"
-        });
-      }
+    // check if user exist
+    const user = await prismaDb.user.findUnique({
+        where: {
+            email: session?.user?.email ||""
+        }
+    })
+    if (!user) {
+        // redirect to AuthUser
+        return NextResponse.redirect('/AuthUser')
+    }
+  
+    
     //   if(!session?.user?.email){
   
       return NextResponse.json({
