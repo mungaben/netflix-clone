@@ -15,11 +15,8 @@ const WatchPage = ({ params }: { params: { id: string } }) => {
   // pass id to SingleMOvieHook  adnd get the data loadiong all stuff
 
   const { data, error, isLoading } = SingleMoviesHook({id});
-  data &&
-  console.log('====================================');
-  console.log(data);
-  console.log('====================================');
-  const MovieData:Movie=data?.data[0]
+  
+  const MovieData:Movie= data?.data && data?.data[0]
 
   return (
     <div className='w-screen h-screen bg-black '>
