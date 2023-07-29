@@ -18,10 +18,7 @@ export async function GET(req: NextRequest,{params}:{params:Idtype},res: NextRes
         if(!session){
             return NextResponse.redirect('/AuthUser')
         }
-        console.log('====================================');
-        console.log("SERVER SESSION session user",session?.user?.email);
-        console.log('====================================');
-        
+       
         const {id}= params;
 // check if favourite movies for user.id exists in user.favoritesIds
         const user = await prismaDb.user.findUnique({
@@ -43,9 +40,6 @@ export async function GET(req: NextRequest,{params}:{params:Idtype},res: NextRes
 
         });
 
-console.log('====================================');
-console.log("SERVER SESSION MoviesData",MoviesData);
-console.log('====================================');
 
 
         

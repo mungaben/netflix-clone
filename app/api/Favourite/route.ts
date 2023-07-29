@@ -40,9 +40,7 @@ try {
             }
         },
     })
-    console.log('====================================');
-    console.log("SERVER SESSION in favourite movies in Favourite route", movies);
-    console.log('====================================');
+   
     return NextResponse.json({
         status: 200,
         statusbar: "success",
