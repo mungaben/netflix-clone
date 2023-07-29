@@ -33,7 +33,7 @@ const NavBar = () => {
   }, []);
 
   return (
-    <div className="fixed top-0 z-40 w-full ">
+    <div className="fixed top-0 z-40 w-full">
       <div className={`flex flex-row items-center px-4 py-6 transition duration-200 ease-in-out md:px-16 ${showBackground ? "bg-zinc-900 bg-opacity-90":""} `}>
         <Image src="/logo.png" height={100} width={100} alt="logo" className=" bg-red-400/30" />
         <div className="flex-row hidden ml-8 gap-7 lg:flex">
