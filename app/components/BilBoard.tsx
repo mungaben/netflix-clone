@@ -5,6 +5,7 @@ import { Movie } from "../../types";
 import { Button } from "@/components/ui/button";
 import ButtonAuth from "../(Auth)/AuthUser/components/ButtonAuth";
 import {AiOutlineInfoCircle} from 'react-icons/ai'
+import PlayButton from "./PlayButton";
 const BilBoard = () => {
   const { data, isLoading, error } = UseBillBoard();
   const datas = data?.data as Movie;
@@ -47,6 +48,7 @@ const BilBoard = () => {
           {datas?.description}
         </p>
         <div className="flex flex-row items-center gap-3 mt-3 md:mt-4">
+          <PlayButton id={datas?.id}/>
         <ButtonAuth variant="secondary" label="More Info" icon={AiOutlineInfoCircle } />
         </div>
        

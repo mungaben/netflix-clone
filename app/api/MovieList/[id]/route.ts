@@ -28,7 +28,7 @@ export async function GET(req: NextRequest, { params }: { params: Idtype }, res:
             return NextResponse.redirect('/AuthUser')
         }
         console.log('====================================');
-        console.log("SERVER SESSION", session?.user?.email);
+        console.log("SERVER SESSION in Movielist Get REquest", session?.user?.email);
         console.log('====================================');
 
         const { id } = params;
