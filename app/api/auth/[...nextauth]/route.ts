@@ -8,9 +8,9 @@ import prismaDb from "@/prisma/prismaDb";
 import GithubProvider from "next-auth/providers/github";
 import GoogleProvider from "next-auth/providers/google";
 import { PrismaAdapter } from "@next-auth/prisma-adapter"
-export const authOptions: NextAuthOptions={
+export const authOptions: NextAuthOptions = {
     // route
-   
+
     // providers credentials
     providers: [
         GithubProvider({
@@ -28,7 +28,7 @@ export const authOptions: NextAuthOptions={
             name: "Credentials",
             credentials: {
                 email: {
-                
+
                     label: "email",
                     type: "text",
                     placeholder: "@gmail.com"
@@ -40,7 +40,7 @@ export const authOptions: NextAuthOptions={
             },
             async authorize(credentials) {
                 // check credentials if available
-                if(credentials?.email === "mungaben21@gmail.com" && credentials.password === "admin"){
+                if (credentials?.email === "mungaben21@gmail.com" && credentials.password === "admin") {
                     const user: User = {
                         name: "Admin",
                         email: "mungaben21@gmail.com",
@@ -52,34 +52,34 @@ export const authOptions: NextAuthOptions={
                 // return null;
 
                 // check email
-                if(!credentials?.email){
+                if (!credentials?.email) {
                     throw new Error("Username is required");
                 }
                 // check password
-                if(!credentials?.password){
+                if (!credentials?.password) {
                     throw new Error("Password is required");
                 }
-                
+
 
                 // check credentials if available
-                 
-                const user= await prismaDb.user.findUnique({
+
+                const user = await prismaDb.user.findUnique({
                     where: {
                         email: credentials.email
                     }
                 });
 
-                if(!user || !user.hashedPassword){
+                if (!user || !user.hashedPassword) {
                     throw new Error("user Email Does not exist");
                 }
 
-                const isPasswordcorrect= await bcrypt.compare(credentials.password, user.hashedPassword);
-                if(!isPasswordcorrect){
+                const isPasswordcorrect = await bcrypt.compare(credentials.password, user.hashedPassword);
+                if (!isPasswordcorrect) {
                     throw new Error("Invalid Password");
                 }
 
 
-             return user;   
+                return user;
             }
 
         })
