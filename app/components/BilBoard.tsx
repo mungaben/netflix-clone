@@ -26,10 +26,10 @@ const BilBoard = () => {
         className="w-full h-[56.25vw] object-cover brightness-[60%] transition duration-500"
         // autoPlay
         muted
-        // loop
+        loop
         playsInline
         src={datas?.videoUrl}
-        controls
+       
       >
         {/* <source src={datas?.videoUrl} /> */}
       </video>

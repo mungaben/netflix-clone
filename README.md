@@ -1,4 +1,34 @@
-This is a [Next.js](https://nextjs.org/) project bootstrapped with [`create-next-app`](https://github.com/vercel/next.js/tree/canary/packages/create-next-app).
+# This is a [Next.js](https://nextjs.org/) project bootstrapped with [`create-next-app`](https://github.com/vercel/next.js/tree/canary/packages/create-next-app).
+
+## [Netflix Clone Demo](https://netflix-clone-eight-sand.vercel.app/)
+
+<!-- image Homepage -->
+![Netflix Clone Demo]('/../public/homepage.png', 'Netflix Clone Demo')
+
+<!-- image Sign In -->
+![Netflix Clone Demo]('/../public/signin.png', 'Netflix Clone Demo')
+
+
+<!-- profile -->
+![Netflix Clone Demo]('/../public/whowatching.png', 'Netflix Clone Demo')
+
+<!--mylist  -->
+![Netflix Clone Demo]('/../public/Mylist.png', 'Netflix Clone Demo')
+
+
+
+## Features
+
+- [x] sign in  with email and password
+- [ ] sign in with google and github
+- [ ] add movies to my list
+- [ ] remove movies from my list
+- [ ] more info about movies pop up
+
+
+
+
+
 
 ## Getting Started
 
