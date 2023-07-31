@@ -1,9 +1,15 @@
 import './globals.css'
 import type { Metadata } from 'next'
-import { Inter } from 'next/font/google'
+import { Inter,Blaka } from 'next/font/google'
 import NavBar from './(Users)/NavBar/components/NavBar'
 
-const inter = Inter({ subsets: ['latin'] })
+
+import { ClerkProvider } from '@clerk/nextjs'
+
+const inter =Blaka ({
+  subsets: ['latin'],
+  weight: '400'
+})
 
 export const metadata: Metadata = {
   title: 'Create Next App',
@@ -16,6 +22,8 @@ export default function RootLayout({
   children: React.ReactNode
 }) {
   return (
+
+    <ClerkProvider>
     <html lang="en">
       <body className='flex bg-black' >
         <NavBar/>
@@ -25,5 +33,7 @@ export default function RootLayout({
        
         </body>
     </html>
+
+    </ClerkProvider>
   )
 }

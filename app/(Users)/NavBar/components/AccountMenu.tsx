@@ -5,6 +5,7 @@ import { signOut } from "next-auth/react";
 import Image from "next/image";
 import React from "react";
 import  { useRouter }  from "next/navigation";
+import { SignOutButton } from "@clerk/nextjs";
 
 interface AccountMenuProps {
   visible?: boolean;
@@ -31,10 +32,14 @@ const AccountMenu: React.FC<AccountMenuProps> = ({ visible }) => {
         </div>
         <hr className="h-px my-4 bg-gray-600 border-0 " />
         <div
-          onClick={() => signOut({callbackUrl:"/AuthUser"})}
+          onClick={() => route.push("/sign-in")}
           className="px-3 text-sm text-center text-white hover:underline"
         >
-          Sign Out NetFlix
+
+
+          <SignOutButton >
+            Sign Out Netflix
+          </SignOutButton>
         </div>
       </div>
     </div>
