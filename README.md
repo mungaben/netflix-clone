@@ -20,10 +20,10 @@
 ## Features
 
 - [x] sign in  with email and password
-- [ ] sign in with google and github
-- [ ] add movies to my list
-- [ ] remove movies from my list
-- [ ] more info about movies pop up
+- [x] sign in with google and github
+- [x] add movies to my list
+- [x] remove movies from my list
+- [x] more info about movies pop up
 
 
 
