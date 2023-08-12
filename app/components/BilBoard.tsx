@@ -19,7 +19,7 @@ const BilBoard = () => {
        datas
   }, [datas]);
   return (
-    <div className="relative h-[56.25vw] bg-white ">
+    <div className="relative h-[56.25vw] bg-white p-20 ">
       {/* Video */}
       <video
         poster={datas?.thumbnailUrl}
