@@ -1,6 +1,6 @@
-# This is a [Next.js](https://nextjs.org/) project bootstrapped with [`create-next-app`](https://github.com/vercel/next.js/tree/canary/packages/create-next-app).
+ [`check it out`]([https://github.com/vercel/next.js/tree/canary/packages/create-next-app](https://netflix-clone-mungaben.vercel.app/AuthUser)).
 
-## [Netflix Clone Demo](https://netflix-clone-eight-sand.vercel.app/)
+## [Netflix Clone Demo]([https://netflix-clone-eight-sand.vercel.app/](https://netflix-clone-mungaben.vercel.app/AuthUser))
 
 <!-- image Homepage -->
 ![Netflix Clone Demo](./public/homepage.png)
