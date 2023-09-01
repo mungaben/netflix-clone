@@ -3,7 +3,7 @@
 ## [Netflix Clone Demo](https://netflix-clone-eight-sand.vercel.app/)
 
 <!-- image Homepage -->
-![Netflix Clone Demo]('/../public/homepage.png', 'Netflix Clone Demo')
+![Netflix Clone Demo](./public/homepage.png', 'Netflix Clone Demo')
 
 <!-- image Sign In -->
 ![Netflix Clone Demo]('/../public/signin.png', 'Netflix Clone Demo')
