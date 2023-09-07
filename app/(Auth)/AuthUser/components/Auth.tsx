@@ -1,6 +1,4 @@
-
-
-"use client"
+"use client";
 import { Input } from "@/components/ui/input";
 import Image from "next/image";
 
@@ -12,65 +10,62 @@ import { buttonVariants } from "@/components/ui/button";
 
 import axios from "axios";
 import { signIn } from "next-auth/react";
-import { useRouter } from 'next/navigation'
+import { useRouter } from "next/navigation";
 import SocialLogin from "./SocialLogin";
 
 const Auth = () => {
-  const route= useRouter()
-    const [Email, setEmail] = useState("")
-    const [name, setname] = useState("")
-    const [password, setpassword] = useState("")
+  const route = useRouter();
+  const [Email, setEmail] = useState("");
+  const [name, setname] = useState("");
+  const [password, setpassword] = useState("");
 
+  const [variant, setvariant] = useState("login");
 
-    const [variant, setvariant] = useState("login")
-
-const ToggleVariant=useCallback(()=>{
-    if(variant==="login"){
-        setvariant("Register") 
+  const ToggleVariant = useCallback(() => {
+    if (variant === "login") {
+      setvariant("Register");
+    } else {
+      setvariant("login");
     }
-    else{
-        setvariant("login")
-    }
-},[variant])
-const login=useCallback(async()=>{
-  try{
-    // sign in user
-  const LogIn=  await signIn("credentials",{
-      redirect:false,
-      email:Email,
-      password,
-      callbackUrl:"/Profiles"
-    })
-    route.push("/Profiles")
-   
-  }catch(error){
-  
-  }
-},[ Email, password, route])
-
-
-const Register=useCallback(async()=>{
+  }, [variant]);
+  const login = useCallback(async () => {
     try {
-       const CreateUser= await axios.post("/api/register",{
-            name,
-            email:Email,
-            password
-        })
-        
- 
-       login();
-        
+      // sign in user
+      const LogIn = await signIn("credentials", {
+        redirect: false,
+        email: Email,
+        password,
+        callbackUrl: "/Profiles",
+      });
+
+      console.log("LOGIN VALUES IN AUTH /AUTHUSER/COMPONENTS/AUTH", LogIn);
+
+      route.push("/Profiles");
     } catch (error) {
-       
+      console.log("ERROR IN AUTH /AUTHUSER/COMPONENTS/AUTH", error);
     }
+  }, [Email, password, route]);
 
-},[ name, Email, password, login])
+  const Register = useCallback(async () => {
+    try {
+      const CreateUser = await axios.post("/api/register", {
+        name,
+        email: Email,
+        password,
+      });
 
+      console.log("REGISTER VALUES IN AUTH /AUTHUSER/COMPONENTS/AUTH", CreateUser )
+
+      login();
+    } catch (error) {
+      console.log("ERROR IN AUTH /AUTHUSER/COMPONENTS/AUTH", error);
+    }
+  }, [name, Email, password, login]);
 
   return (
-    <div className="relative min-h-screen min-w-full  bg-[url('/hero.jpg')] bg-cover bg-no-repeat bg-center bg-fixed lg:opacity-80 bg-black">
+    <div className="relative min-h-screen min-w-full  bg-[url('/hero.jpg')] bg-cover bg-no-repeat bg-center bg-fixed lg:opacity-80 bg-black ">
       <div className="">
-        <nav className="px-12 py-5 ">
+        {/* <nav className="px-12 py-5 ">
           <Image
             src={"/logo.png"}
             height={100}
@@ -78,49 +73,56 @@ const Register=useCallback(async()=>{
             alt="logo"
             className="cursor-pointer"
           />
-        </nav>
+        </nav> */}
         <div className="flex justify-center ">
-          <div className="self-center w-full px-16 py-16 bg-black rounded-md bg-opacity-70 lg:w-2/5 lg:max-w-md">
+          <div className="self-center w-full px-16 py-16 bg-black rounded-md bg-opacity-70 lg:w-2/5 lg:max-w-md mt-[10%] ">
             <h2 className=" text-[#fff] text-4xl font-semibold mb-8">
-              {variant==="login"?"Sign In":"Register"}
+              {variant === "login" ? "Sign In" : "Register"}
             </h2>
             <div className="flex flex-col gap-4 ">
-            {variant==="Register"&&
-             <InputAuth
-                 id="name"
-                 Onchange={(e: { target: { value: React.SetStateAction<string>; }; })=>setname(e.target.value)}
-                 value={name}
-                 type="name"
-                 placeholder=" "
-                 label="name"            
-             
-             />
-            }
-               <InputAuth
-                 id="email"
-                 Onchange={(e: { target: { value: React.SetStateAction<string>; }; })=>setEmail(e.target.value)}
-                 value={Email}
-                 type="email"
-                 placeholder=" "
-                 label="Email"            
-             
-             />
+              {variant === "Register" && (
                 <InputAuth
-                    id="password"
-                    Onchange={(e: { target: { value: React.SetStateAction<string>; }; })=>setpassword(e.target.value)}
-                    value={password}
-                    type="password"
-                    placeholder=" "
-                    label="Password"
+                  id="name"
+                  Onchange={(e: {
+                    target: { value: React.SetStateAction<string> };
+                  }) => setname(e.target.value)}
+                  value={name}
+                  type="name"
+                  placeholder=" "
+                  label="name"
                 />
+              )}
+              <InputAuth
+                id="email"
+                Onchange={(e: {
+                  target: { value: React.SetStateAction<string> };
+                }) => setEmail(e.target.value)}
+                value={Email}
+                type="email"
+                placeholder=" "
+                label="Email"
+              />
+              <InputAuth
+                id="password"
+                Onchange={(e: {
+                  target: { value: React.SetStateAction<string> };
+                }) => setpassword(e.target.value)}
+                value={password}
+                type="password"
+                placeholder=" "
+                label="Password"
+              />
             </div>
             <div className="py-3 mt-10 transition rounded-md">
-            <ButtonAuth variant={variant === "login"? "destructive" : "secondary" } label={variant === "login"? "Login" : "Register" } onClick={variant ==="login"? login:Register}  width={true}/>
+              <ButtonAuth
+                variant={variant === "login" ? "destructive" : "secondary"}
+                label={variant === "login" ? "Login" : "Register"}
+                onClick={variant === "login" ? login : Register}
+                width={true}
+              />
             </div>
-            <SocialLogin/>
-            <CreateAcc Onclick={ToggleVariant} variant={variant}/>
-          
-
+            <SocialLogin />
+            <CreateAcc Onclick={ToggleVariant} variant={variant} />
           </div>
         </div>
       </div>

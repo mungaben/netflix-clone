@@ -10,16 +10,15 @@ import UseInfoModal from "@/hooks/UseInfoModal";
 const BilBoard = () => {
   const { data, isLoading, error } = UseBillBoard();
   const datas = data?.data as Movie;
-  const { openModel}=UseInfoModal();
- const handleopenModal=useCallback(()=>{
-   openModel( datas?.id);
-
- },[datas?.id, openModel]);
+  const { openModel } = UseInfoModal();
+  const handleopenModal = useCallback(() => {
+    openModel(datas?.id);
+  }, [datas?.id, openModel]);
   useEffect(() => {
-       datas
+    datas;
   }, [datas]);
   return (
-    <div className="relative h-[56.25vw] bg-white p-20 ">
+    <div className="relative h-[56.25vw]  py-2 ">
       {/* Video */}
       <video
         poster={datas?.thumbnailUrl}
@@ -29,7 +28,6 @@ const BilBoard = () => {
         loop
         playsInline
         src={datas?.videoUrl}
-       
       >
         {/* <source src={datas?.videoUrl} /> */}
       </video>
@@ -54,14 +52,13 @@ const BilBoard = () => {
         </p>
         <div className="flex flex-row items-center gap-3 mt-3 md:mt-4">
           <PlayButton id={datas?.id} />
-          <span onClick={handleopenModal} > 
-          <ButtonAuth
-            variant="secondary"
-            label="More Info"
-            icon={AiOutlineInfoCircle}
-          />
+          <span onClick={handleopenModal}>
+            <ButtonAuth
+              variant="secondary"
+              label="More Info"
+              icon={AiOutlineInfoCircle}
+            />
           </span>
-          
         </div>
       </div>
     </div>

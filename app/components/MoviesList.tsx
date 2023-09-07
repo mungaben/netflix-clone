@@ -2,16 +2,8 @@
 
 import React from "react";
 
-import { isEmpty } from "lodash";
 import { Movie } from "@/types";
-import {
-  Card,
-  CardContent,
-  CardDescription,
-  CardFooter,
-  CardHeader,
-  CardTitle,
-} from "@/components/ui/card";
+import { isEmpty } from "lodash";
 import MovieCard from "./MovieCard";
 
 interface MovieListProps {

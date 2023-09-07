@@ -1,15 +1,10 @@
 "use client";
 
-import { Button } from "@/components/ui/button";
 import CurrentUser from "@/hooks/CurrentUser";
-import { getSession, signOut } from "next-auth/react";
 import Image from "next/image";
-import React, { use, useEffect } from "react";
-import loading from "../loading";
-import Loading from "../loading";
-import Error from "../error";
-import { User } from "../../../../types";
 import { useRouter } from "next/navigation";
+import { useEffect } from "react";
+import { User } from "../../../../types";
 
 const GetUser = () => {
   const { data, isLoading, mutate } = CurrentUser();

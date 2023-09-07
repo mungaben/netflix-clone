@@ -1,106 +1,84 @@
 import { RequestInternal, Awaitable, User, NextAuthOptions } from "next-auth";
 
 import Credentials from "next-auth/providers/credentials";
-import NextAuth from "next-auth"
+import NextAuth from "next-auth";
 
-import bcrypt from "bcrypt";
+import bcrypt, { compare } from "bcrypt";
 import prismaDb from "@/prisma/prismaDb";
 import GithubProvider from "next-auth/providers/github";
 import GoogleProvider from "next-auth/providers/google";
-import { PrismaAdapter } from "@next-auth/prisma-adapter"
+import { PrismaAdapter } from "@next-auth/prisma-adapter";
 export const authOptions: NextAuthOptions = {
-    // route
+  // route
 
-    // providers credentials
-    providers: [
-        GithubProvider({
-            clientId: process.env.GITHUB_CLIENT_ID || "",
-            clientSecret: process.env.GITHUB_CLIENT_SECRET || "",
-
-
-        }),
-        GoogleProvider({
-            clientId: process.env.GOOGLE_CLIENT_ID || "",
-            clientSecret: process.env.GOOGLE_CLIENT_SECRET || "",
-        }),
-        Credentials({
-            id: "credentials",
-            name: "Credentials",
-            credentials: {
-                email: {
-
-                    label: "email",
-                    type: "text",
-                    placeholder: "@gmail.com"
-                },
-                password: {
-                    label: "Password",
-                    type: "password"
-                }
-            },
-            async authorize(credentials) {
-                // check credentials if available
-                if (credentials?.email === "mungaben21@gmail.com" && credentials.password === "admin") {
-                    const user: User = {
-                        name: "Admin",
-                        email: "mungaben21@gmail.com",
-                        image: "/default-green.png",
-                        id: "admin"
-                    }
-                    return user;
-                }
-                // return null;
-
-                // check email
-                if (!credentials?.email) {
-                    throw new Error("Username is required");
-                }
-                // check password
-                if (!credentials?.password) {
-                    throw new Error("Password is required");
-                }
+  // providers credentials
+  providers: [
+    GithubProvider({
+      clientId: process.env.GITHUB_CLIENT_ID || "",
+      clientSecret: process.env.GITHUB_CLIENT_SECRET || "",
+    }),
+    GoogleProvider({
+      clientId: process.env.GOOGLE_CLIENT_ID || "",
+      clientSecret: process.env.GOOGLE_CLIENT_SECRET || "",
+    }),
+    Credentials({
+      id: "credentials",
+      name: "Credentials",
+      credentials: {
+        email: {
+          label: "email",
+          type: "text",
+          placeholder: "@gmail.com",
+        },
+        password: {
+          label: "Password",
+          type: "password",
+        },
+      },
+      async authorize(credentials) {
+        if (!credentials?.email || !credentials?.password) {
+          throw new Error('Email and password required');
+        }
 
 
-                // check credentials if available
+        console.log("EMAIL CREDENTIALS", credentials.email);
+        
 
-                const user = await prismaDb.user.findUnique({
-                    where: {
-                        email: credentials.email
-                    }
-                });
+        const user = await prismaDb.user.findUnique({ where: {
+          email: credentials.email
+        }});
 
-                if (!user || !user.hashedPassword) {
-                    throw new Error("user Email Does not exist");
-                }
+        console.log("USER CREDENTIALS", user);
+        
 
-                const isPasswordcorrect = await bcrypt.compare(credentials.password, user.hashedPassword);
-                if (!isPasswordcorrect) {
-                    throw new Error("Invalid Password");
-                }
+        if (!user || !user.hashedPassword) {
+          throw new Error('Email does not exist');
+        }
 
+        const isCorrectPassword = await compare(credentials.password, user.hashedPassword);
 
-                return user;
-            }
+        if (!isCorrectPassword) {
+          throw new Error('Incorrect password');
+        }
 
-        })
-    ],
+        return user;
+      }
+    })
+  ],
 
-    pages: {
-        signIn: "/AuthUser",
-    },
-    debug: process.env.NODE_ENV === "development",
-    adapter: PrismaAdapter(prismaDb),
-    secret: process.env.SECRET,
-    session: {
-        strategy: "jwt",
-    },
-    jwt: {
-        secret: process.env.NEXTAUTH_JWT_SECRET,
-    },
-
-
+  pages: {
+    signIn: "/AuthUser",
+  },
+  debug: process.env.NODE_ENV === "development",
+  adapter: PrismaAdapter(prismaDb),
+  secret: process.env.SECRET,
+  session: {
+    strategy: "jwt",
+  },
+  jwt: {
+    secret: process.env.NEXTAUTH_JWT_SECRET,
+  },
 };
 
 const handler = NextAuth(authOptions);
 export { handler as GET, handler as POST };
-
